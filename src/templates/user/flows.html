@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>OpenROAD Flow | Flows</title>
+
+    {% include 'common/resources-head.html' %}
+
+    <!-- DataTables CSS -->
+    <link href="{% static 'vendor/datatables-plugins/dataTables.bootstrap.css' %}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{% static 'vendor/datatables-responsive/dataTables.responsive.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'common/user/navbar.html' %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="back-button">
+                        <a href="{% url 'frontend:designs' %}"><i class="fa fa-arrow-circle-o-left"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-header"> {{ design.name }} / Flows</h2>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary" onclick="window.location.reload();"
+                            data-toggle="tooltip" data-placement="top" title="Refresh Flows">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    {% csrf_token %}
+                    <button class="btn btn-success pull-right" style="margin-bottom:10px;" onclick="triggerFlow({{design.id}})">Run on latest version</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Here is a log of all flows run on this design
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="designs-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Commit Message</th>
+                                        <th class="text-center">Commit ID</th>
+                                        <th class="text-center">Triggered At</th>
+                                        <th class="text-center">Started At</th>
+                                        <th class="text-center">Completed At</th>
+                                        <th class="text-center">Live Monitoring</th>
+                                        <th class="text-center">Output Files</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for flow in flows %}
+                                    <tr class="odd gradeA">
+                                        {% if flow.status == 'triggered' %}
+                                            <td class="text-center">
+                                                <a href="{% url 'frontend:design-flow' flow.id %}" class="btn btn-circle btn-warning btn-xs"
+                                                     data-toggle="tooltip" data-placement="top" title="Flow Triggered">
+                                                    <i class="fa fa-flag-o"></i>
+                                                </a>
+                                            </td>
+                                        {% elif flow.status == 'started' %}
+                                            <td class="text-center">
+                                                <a href="{% url 'frontend:design-flow' flow.id %}" class="btn btn-circle btn-info btn-xs" style="padding: 1px 6px;"
+                                                     data-toggle="tooltip" data-placement="top" title="Flow Started">
+                                                    <i class="fa fa-play"></i>
+                                                </a>
+                                            </td>
+                                        {% elif flow.status == 'completed' %}
+                                            <td class="text-center">
+                                                <a href="{% url 'frontend:design-flow' flow.id %}" class="btn btn-circle btn-success btn-xs"
+                                                     data-toggle="tooltip" data-placement="top" title="Flow Completed">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            </td>
+                                        {% elif flow.status == 'failed' %}
+                                            <td class="text-center">
+                                                <a href="{% url 'frontend:design-flow' flow.id %}" class="btn btn-circle btn-danger btn-xs"
+                                                     data-toggle="tooltip" data-placement="top" title="Flow Failed">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        {% else %}
+                                            <td class="text-center">
+                                                <div class="btn btn-circle btn-success btn-xs"
+                                                     data-toggle="tooltip" data-placement="top" title="Undefined State!">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                        <td class="text-center">{{ flow.commit_message }}</td>
+                                        <td class="text-center">{{ flow.commit_id|slice:":10" }} ..</td>
+                                        <td class="text-center">{{ flow.triggered_on }}</a></td>
+                                        <td class="text-center">{{ flow.started_on }}</a></td>
+                                        <td class="text-center">{{ flow.ended_on }}</a></td>
+                                        <td class="text-center"><a href="{% url 'frontend:design-flow' flow.id %}"><i class="fa fa-desktop"></i></a></td>
+                                        <td class="text-center"><a href="{{ flow.output_files_url }}" target="_blank"><i class="fa fa-files-o"></i></a></td>
+                                    </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    {% include 'common/resources-scripts.html' %}
+
+    <!-- DataTables JavaScript -->
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-responsive/dataTables.responsive.js' %}"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#designs-table').DataTable({
+            responsive: true
+        });
+    });
+    function triggerFlow(designId){
+        var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+        $.ajax({
+            url: '/user/designs/' + designId + '/flow',
+            type: 'POST',
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            success: function(result) {
+                window.location.href = '/user/designs/' + designId + '/flows';
+            }
+        });
+    }
+    </script>
+</body>
+
+</html>

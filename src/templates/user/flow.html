@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>OpenROAD Flow | Flow Window</title>
+
+    {% include 'common/resources-head.html' %}
+
+    <!-- DataTables CSS -->
+    <link href="{% static 'vendor/datatables-plugins/dataTables.bootstrap.css' %}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{% static 'vendor/datatables-responsive/dataTables.responsive.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'common/user/navbar.html' %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="back-button">
+                        <a href="{% url 'frontend:design-flows' flow.design.id %}"><i class="fa fa-arrow-circle-o-left"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-header"> {{ flow.design.name }} Flow / {{ flow.commit_message }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" onclick="window.location.reload();"
+                            data-toggle="tooltip" data-placement="top" title="Refresh Flows">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+
+                </div>
+                <div class="col-md-8">
+                    <a href="{{ flow.output_files_url }}" target="_blank"
+                       class="btn btn-success pull-right" style="margin-bottom:10px;">View Output Files</a>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {% if flow.status == 'triggered' %}
+                            <div class="btn btn-circle btn-warning"
+                                 data-toggle="tooltip" data-placement="top" title="Flow Triggered">
+                                <i class="fa fa-flag-o"></i>
+                            </div>
+                            &nbsp;<b>Status: </b> {{ flow.status }}. <span class="pull-right"><b>Last update at</b>: {{ flow.triggered_on }}</span>
+                            {% elif flow.status == 'started' %}
+                            <div class="btn btn-circle-lg btn-info" style="padding: 1px 8px;"
+                                 data-toggle="tooltip" data-placement="top" title="Flow Started">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            &nbsp;<b>Status: </b> {{ flow.status }}. <span class="pull-right"><b>Last update at</b>: {{ flow.started_on }}</span>
+                            {% elif flow.status == 'completed' %}
+                            <div class="btn btn-circle-lg btn-success"
+                                 data-toggle="tooltip" data-placement="top" title="Flow Completed">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            &nbsp;<b>Status: </b> {{ flow.status }}. <span class="pull-right"><b>Last update at</b>: {{ flow.ended_on }}</span>
+                            {% elif flow.status == 'failed' %}
+                            <div class="btn btn-circle-lg btn-danger"
+                                 data-toggle="tooltip" data-placement="top" title="Flow Failed">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            &nbsp;<b>Status: </b> {{ flow.status }}. <span class="pull-right"><b>Last update at</b>: {{ flow.ended_on  }}</span>
+                            {% else %}
+                            <b>Status: </b> Unknown!
+                            {% endif %}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="live-monitoring">
+
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    {% include 'common/resources-scripts.html' %}
+
+    <!-- DataTables JavaScript -->
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-responsive/dataTables.responsive.js' %}"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#designs-table').DataTable({
+            responsive: true
+        });
+    });
+    function triggerFlow(designId){
+        var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+        $.ajax({
+            url: '/user/designs/' + designId + '/flow',
+            type: 'POST',
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            success: function(result) {
+                window.location.href = '/user/designs/' + designId + '/flows';
+            }
+        });
+    }
+    </script>
+        <script type="text/javascript">
+        var last_response_len = false;
+        $.ajax('/user/flow/{{flow.id}}', {
+            xhrFields: {
+                onprogress: function(e)
+                {
+                    var this_response, response = e.currentTarget.response;
+                    if(last_response_len === false)
+                    {
+                        this_response = response;
+                        last_response_len = response.length;
+                    }
+                    else
+                    {
+                        this_response = response.substring(last_response_len);
+                        last_response_len = response.length;
+                    }
+                    $('#live-monitoring').html(this_response.replace(/\\n/g, "<br/>"));
+                    var elem = document.getElementById('live-monitoring');
+                    elem.scrollTop = elem.scrollHeight;
+                }
+            }
+        })
+        .done(function(data)
+        {
+            console.log('Complete response = ' + data);
+        })
+        .fail(function(data)
+        {
+            console.log('Error: ', data);
+        });
+        console.log('Request Sent');
+        </script>
+</body>
+
+</html>

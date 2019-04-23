@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>OpenROAD Flow | Dashboard</title>
+
+    {% include 'common/resources-head.html' %}
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        {% include 'common/user/navbar.html' %}
+
+        <div id="page-wrapper">
+            <div id="intro-dashboard">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="page-header">Dashboard</h2>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-braille fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ new_designs }}</div>
+                                        <div>New Designs!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'frontend:designs' %}">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-check fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ flows_completed }}</div>
+                                        <div>Flows Completed!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'frontend:designs' %}">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-clock-o fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ compute_minutes }}</div>
+                                        <div>Compute Minutes!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'frontend:designs' %}">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-fast-forward fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ minutes_saved }}</div>
+                                        <div>Minutes Saved!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'frontend:designs' %}">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div id="intro-live-monitor" class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop fa-fw"></i> Live Monitoring
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Select Flow
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        {% for running_flow in running_flows%}
+                                            <li><a href="">{{ running_flow.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                        <li class="divider"></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#live-monitoring-what-is-this">What is this?</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="live-monitoring">
+                                No running flows.
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div id="intro-notification-panel" class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                {% for notification in notifications %}
+                                    {% if notification.click_parameter %}
+                                    <a href="{% url notification.click_view notification.click_parameter %}" class="list-group-item">
+                                        <i class="fa fa-{{notification.icon}} fa-fw"></i> {{ notification.message }}
+                                        <span class="pull-right text-muted small"><em>{{ notification.timestamp }}</em>
+                                        </span>
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url notification.click_view %}" class="list-group-item">
+                                        <i class="fa fa-{{notification.icon}} fa-fw"></i> {{ notification.message }}
+                                        <span class="pull-right text-muted small"><em>{{ notification.timestamp }}</em>
+                                        </span>
+                                    </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <!-- /.list-group -->
+                            <div class="text-center">
+                                No more alerts!
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <div id="live-monitoring-what-is-this" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Live Monitoring</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Long running flows log their progress on our cluster.
+                        Once you trigger the flow on your design and it takes long enough, we start our live monitoring
+                        service for you to follow up its progress.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'common/resources-scripts.html' %}
+    {% if show_intro %}
+    <script src="{% static 'dist/js/openroad-intro-dashboard.js' %}"></script>
+    {% endif %}
+</body>
+
+</html>

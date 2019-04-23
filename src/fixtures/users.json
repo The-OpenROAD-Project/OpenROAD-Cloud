@@ -1,0 +1,20 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$WCP2EzN3YzWY$ssx0kiKnQMPJ8I9w4w1nrUOhTfkfZMk9xFrSmPTBjjk=",
+        "last_login": "2018-12-04T01:26:32.956Z",
+        "is_superuser": true,
+        "username": "abdelrahman@brown.edu",
+        "first_name": "",
+        "last_name": "",
+        "email": "abdelrahman@brown.edu",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-12-04T01:26:03.569Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
