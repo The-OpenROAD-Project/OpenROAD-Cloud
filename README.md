@@ -23,17 +23,17 @@ Go to [https://flow.theopenroadproject.org](https://flow.theopenroadproject.org)
 register for an account and follow the step-by-step tutorial. 
 
 ## Documentation
-Find our detailed documentation at [https://docs.flow.theopenroadproject.org](https://docs.flow.theopenroadproject.org/).
+Find our detailed documentation at [https://docs.theopenroadproject.org](https://docs.theopenroadproject.org/).
 
 ## Deployment on a Private Cloud
 Although the publicly available platform enables our research and offers ease-of-use and latest 
 improvements to users around the world, OpenROAD flow can be independently deployed on a private 
 cloud infrastructure. 
-Follow our [deployment guide](https://docs.flow.theopenroadproject.org/private-cloud.html) to get started. You can also seek [help](#help) below. 
+Follow our [deployment guide](https://docs.theopenroadproject.org/private-cloud.html) to get started. You can also seek [help](#help) below. 
 
 ## Contributing
 To contribute to our project, have a look at the [project roadmap](https://github.com/The-OpenROAD-Project/flow.theopenroadproject.org/projects/1)
-to get familiar with our plans. Our [developer guide](https://docs.flow.theopenroadproject.org/developer-guide.html) outlines important coding style and organization of the codebase.
+to get familiar with our plans. Our [developer guide](https://docs.theopenroadproject.org/developer-guide.html) outlines important coding style and organization of the codebase.
 
 In general, here are the skills and tracks you can contribute to:
 
