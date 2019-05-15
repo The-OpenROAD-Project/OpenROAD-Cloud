@@ -22,5 +22,5 @@ PyYAML==3.13
 GitPython==2.1.11
 json2html==1.2.1
 celery==4.2.1
-redis==2.10.6
+redis==3.2.0
 rethinkdb==2.3.0.post6

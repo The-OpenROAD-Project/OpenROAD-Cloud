@@ -7,14 +7,14 @@ volumes:
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:9.6
     container_name: openroad_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file: src/.env
 
   broker:
-    image: redis
+    image: redis:5.0.4
     volumes:
       - broker_data:/data
     container_name: redis_broker

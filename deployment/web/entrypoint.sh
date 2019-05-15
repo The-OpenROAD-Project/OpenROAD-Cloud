@@ -36,7 +36,7 @@ if [ "x$LOAD_DATA" = 'xon' ]; then
 fi
 
 # collect static files
-# find . -name '*.pyc' -delete && \
-#   python /src/manage.py collectstatic --noinput
+find . -name '*.pyc' -delete && \
+  python /src/manage.py collectstatic --noinput
 
 uwsgi --http-auto-chunked --http-keepalive --static-map /static=/src/assets --static-map /media=/src/media

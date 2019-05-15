@@ -81,11 +81,13 @@ WSGI_APPLICATION = 'flow.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASE_URL = 'sqlite:///db.sqlite3'
+POSTGRES_HOST = env('POSTGRES_HOST', default=None)
 POSTGRES_DB = env('POSTGRES_DB', default=None)
 POSTGRES_USER = env('POSTGRES_USER', default=None)
 POSTGRES_PASSWORD = env('POSTGRES_PASSWORD', default=None)
-if POSTGRES_DB and POSTGRES_USER and POSTGRES_PASSWORD:
-    DATABASE_URL = 'postgres://' + POSTGRES_USER + ':' + POSTGRES_PASSWORD + '@postgres/' + POSTGRES_DB
+
+if POSTGRES_HOST and POSTGRES_DB and POSTGRES_USER and POSTGRES_PASSWORD:
+    DATABASE_URL = 'postgres://' + POSTGRES_USER + ':' + POSTGRES_PASSWORD + '@' + POSTGRES_HOST + '/' + POSTGRES_DB
 
 DATABASES = {
     'default': env.db('DATABASE_URL', default=DATABASE_URL),
