@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  before_script:
+    - cp /home/openroad/frontend_service.env
+  script:
+    - docker-compose build
+  only:
+    - master
+  tags:
+    - openroad
+    - flow
+    - frontend
+
+deploy:
+  stage: deploy
+  before_script:
+    - cp /home/openroad/frontend_service.env
+  script:
+    - docker-compose up -d
+  only:
+    - master
+  tags:
+    - openroad
+    - flow
+    - frontend
+  environment:
+    name: production
+    url: https://flow.theopenroadproject.org
