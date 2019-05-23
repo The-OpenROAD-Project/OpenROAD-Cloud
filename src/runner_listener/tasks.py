@@ -22,11 +22,13 @@ def flow_started_task(flow_uuid, storage_url, live_monitoring_url):
     return True
 
 @task(name='flow_completed_task')
-def flow_completed_task(flow_uuid):
+def flow_completed_task(flow_uuid, storage_url=None):
     flow = Flow.objects.get(openroad_uuid=flow_uuid)
     if flow:
         flow.status = Flow.COMPLETED
         flow.ended_on = timezone.now()
+        if storage_url:
+            flow.output_files_url = storage_url
         flow.save()
         logger.info('Flow ' + str(flow) + ' completed ..')
         send_flow_completed.delay(flow_uuid)
@@ -34,11 +36,13 @@ def flow_completed_task(flow_uuid):
     return True
 
 @task(name='flow_failed_task')
-def flow_failed_task(flow_uuid):
+def flow_failed_task(flow_uuid, storage_url=None):
     flow = Flow.objects.get(openroad_uuid=flow_uuid)
     if flow:
         flow.status = Flow.FAILED
         flow.ended_on = timezone.now()
+        if storage_url:
+            flow.output_files_url = storage_url
         flow.save()
         logger.info('Flow ' + str(flow)+ ' failed ..')
         send_flow_failed.delay(flow_uuid)

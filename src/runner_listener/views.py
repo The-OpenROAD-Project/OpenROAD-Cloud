@@ -20,20 +20,22 @@ class FlowStarted(APIView):
 class FlowCompleted(APIView):
     def post(self, request):
         flow_uuid = request.POST.get('flow_uuid', None)
+        storage_url = request.POST.get('storage_url', None)
 
         if not flow_uuid:
             return Response('Missing parameters', status=status.HTTP_400_BAD_REQUEST)
 
-        flow_completed_task.delay(flow_uuid)
+        flow_completed_task.delay(flow_uuid, storage_url)
         return Response('Received', status=status.HTTP_202_ACCEPTED)
 
 
 class FlowFailed(APIView):
     def post(self, request):
         flow_uuid = request.POST.get('flow_uuid', None)
+        storage_url = request.POST.get('storage_url', None)
 
         if not flow_uuid:
             return Response('Missing parameters', status=status.HTTP_400_BAD_REQUEST)
 
-        flow_failed_task.delay(flow_uuid)
+        flow_failed_task.delay(flow_uuid, storage_url)
         return Response('Received', status=status.HTTP_202_ACCEPTED)
