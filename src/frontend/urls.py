@@ -6,7 +6,7 @@ public_urls = [
     path('', views.public.HomeView.as_view(), name='index'),
     path('login', views.public.LoginView.as_view(), name='login'),
     path('logout', views.public.LogoutView.as_view(), name='logout'),
-    path('terms-of-service', views.public.TermsOfServiceView.as_view(), name='terms-of-service'),
+    # path('terms-of-service', views.public.TermsOfServiceView.as_view(), name='terms-of-service'),
 ]
 
 user_urls = [
