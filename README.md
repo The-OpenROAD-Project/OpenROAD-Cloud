@@ -43,9 +43,6 @@ Dare to modernize our frontend stack to `VueJS`, `Angular` or `React`? We would 
 - **Backend development**: Our REST APIs are built using `Python Django REST Framework`. 
 In addition, there are some views rendered using `Django template system`. 
 Contribute to this track if you are familiar with `Python`, `Djnago`, `REST APIs` and databases.
-- **Cluster computing**: the main `flow runner` is deployed in a `Kubernetes` cluster. 
-Contribute to this track if you have strong `Docker` skills and server/cluster adminstration seems like
-housekeeping tasks for you.   
 - **Testing**: writing unit tests, integration tests, and automating this process is at the heart of our
 CI/CD pipeline. Contribute to this track to enhance the reliability of the platform.
 
@@ -53,11 +50,10 @@ Before submitting a `pull request`, get in touch with the project contributors t
 be working on. 
 
 ## Help
-Contact [abdelrahman+openroad@brown.edu](mailto:abdelrahman+openroad@brown.edu) for questions.
+In the issues tab, create a new issue with your question. If you need to send attachments with private IPs, contact us through https://docs.theopenroadproject.org/#questions-support
+
 
 ## License
-© 2018-2019 The OpenROAD Project & contributors.
+BSD 2-Clause License
 
-License file to be available once repo is public.  
-
-#
+Copyright (c) 2019, The OpenROAD Project All rights reserved.
