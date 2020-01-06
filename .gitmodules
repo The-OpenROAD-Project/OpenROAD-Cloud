@@ -1,0 +1,6 @@
+[submodule "web-frontend"]
+	path = web-frontend
+	url = https://github.com/OpenROAD-Cloud/web-frontend.git
+[submodule "api"]
+	path = api
+	url = https://github.com/OpenROAD-Cloud/api.git
