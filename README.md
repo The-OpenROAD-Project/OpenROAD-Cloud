@@ -1,14 +1,14 @@
-# Welcome to OpenROAD Cloud Flow
-The source code that empowers [https://flow.theopenroadproject.org/](https://flow.theopenroadproject.org/)
+# OpenROAD Cloud
+The source code that empowers [https://cloud.theopenroadproject.org/](https://cloud.theopenroadproject.org/)
 
 ![version](https://img.shields.io/badge/version-beta-blue.svg)
 ![coverage](https://img.shields.io/badge/coverage-unknown-yellowgreen.svg)
-![uptime](https://img.shields.io/badge/uptime-100%25-brightgreen.svg)
+![uptime](https://img.shields.io/badge/uptime-50%-critical.svg)
 
 ## Purpose
 [The OpenROAD Project](https://theopenroadproject.org/) aims at providing a 24-hour, no-human-in-the-loop layout design 
 for SoC, package and PCB with no Power-Performance-Area (PPA) loss. The cloud infrastructure set up at 
-[OpenROAD Flow](https://flow.theopenroadproject.org/) makes the tools and designs accessible through
+[OpenROAD Cloud](https://cloud.theopenroadproject.org/) makes the tools and designs accessible through
 an easy-to-use web-based interface.
 
 If you want to jump start using our platform, go to the [Quickstart](#quickstart-guide) section. 
@@ -46,7 +46,7 @@ Contribute to this track if you are familiar with `Python`, `Djnago`, `REST APIs
 - **Testing**: writing unit tests, integration tests, and automating this process is at the heart of our
 CI/CD pipeline. Contribute to this track to enhance the reliability of the platform.
 
-Before submitting a `pull request`, get in touch with the project contributors to align what features you will
+Before submitting a `Pull Request`, get in touch with the project contributors to align what features you will
 be working on. 
 
 ## Help
@@ -56,4 +56,4 @@ In the issues tab, create a new issue with your question. If you need to send at
 ## License
 BSD 2-Clause License
 
-Copyright (c) 2019, The OpenROAD Project All rights reserved.
+Copyright (c) 2020, The OpenROAD Project All rights reserved.
