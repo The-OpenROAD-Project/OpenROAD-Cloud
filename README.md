@@ -3,7 +3,7 @@ The source code that empowers [https://cloud.theopenroadproject.org/](https://cl
 
 ![version](https://img.shields.io/badge/version-beta-blue.svg)
 ![coverage](https://img.shields.io/badge/coverage-unknown-yellowgreen.svg)
-![uptime](https://img.shields.io/badge/uptime-50%25-critical.svg)
+![uptime](https://img.shields.io/badge/uptime-50%25-red.svg)
 
 ## Purpose
 [The OpenROAD Project](https://theopenroadproject.org/) aims at providing a 24-hour, no-human-in-the-loop layout design 
