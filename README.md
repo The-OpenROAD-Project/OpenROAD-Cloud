@@ -1,5 +1,5 @@
 # OpenROAD Cloud
-The source code that empowers [https://cloud.theopenroadproject.org/](https://cloud.theopenroadproject.org/)
+The source code that empowers [https://flow.theopenroadproject.org/](https://flow.theopenroadproject.org/)
 
 ![version](https://img.shields.io/badge/version-beta-blue.svg)
 ![coverage](https://img.shields.io/badge/coverage-unknown-yellowgreen.svg)
