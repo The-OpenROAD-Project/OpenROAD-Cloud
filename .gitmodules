@@ -1,0 +1,12 @@
+[submodule "frontend-service"]
+	path = frontend-service
+	url = https://github.com/OpenROAD-Cloud/frontend-service
+[submodule "backend"]
+	path = backend
+	url = https://github.com/OpenROAD-Cloud/backend
+[submodule "examples/aes"]
+	path = examples/aes
+	url = https://github.com/OpenROAD-Cloud/aes
+[submodule "examples/gcd"]
+	path = examples/gcd
+	url = https://github.com/OpenROAD-Cloud/gcd
