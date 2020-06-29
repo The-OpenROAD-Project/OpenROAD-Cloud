@@ -1,9 +1,9 @@
 # OpenROAD Cloud
 The source code that empowers [https://cloud.theopenroadproject.org/](https://cloud.theopenroadproject.org/)
 
-![version](https://img.shields.io/badge/version-beta-blue.svg)
+![version](https://img.shields.io/badge/version-alpha-blue.svg)
 ![coverage](https://img.shields.io/badge/coverage-unknown-yellowgreen.svg)
-![uptime](https://img.shields.io/badge/uptime-50%25-red.svg)
+![uptime](https://img.shields.io/badge/uptime-98%25-green.svg)
 
 ## Purpose
 [The OpenROAD Project](https://theopenroadproject.org/) aims at providing a 24-hour, no-human-in-the-loop layout design 
