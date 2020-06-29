@@ -58,6 +58,11 @@ clock_period: 5.00             # clock period in nanoseconds
 5. After the design is added, click **Run on latest version**.
 6. You will receive email notifications updating you on the status of the flow.
 
+### Examples
+
+* [GCD](https://github.com/OpenROAD-Cloud/gcd)
+* [AES](https://github.com/OpenROAD-Cloud/aes)
+
 ## Deployment on a Private Cloud
 Although the publicly available platform enables our research and offers ease-of-use and latest 
 improvements to users around the world, OpenROAD flow can be independently deployed on a private 
